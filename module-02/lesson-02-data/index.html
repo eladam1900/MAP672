@@ -5,7 +5,7 @@
     <meta charset=utf-8 />
     <title>MAP672 Module 2 Template</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-
+    <script src = "https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <style>
         body {
              margin: 0;
@@ -14,13 +14,15 @@
             font-family: helvetica;
             color: black;
         }
+/*        changes the font size and pushes the text 300 pixels from the left (centering it). */
         h1 {
             font-size: 2em;
             margin-left: 300px;
         }
+/*        changes the font size, pushes the text 360 pixels from the left (centering it under the h1), and adds a negative top margin adjusting the space between h1 and h2.*/
         h2{
             font-size: 1em;
-            margin-left: 340px;
+            margin-left: 360px;
             margin-top: -20px;
             
         }
@@ -42,6 +44,22 @@
             border: 7px double black;
             
         }
+/*        sets the width and height to 200 pixels, background color to #3e6b93 (blue), and adds a 25 pixel margin around the entire div*/
+        #box {
+            width: 200px;
+            height: 200px;
+            background: #3e6b93;
+            margin: 25px;
+        }
+/*        sets the width and height to 100 pixels, background to #bf6864 (salmon), adds a 25 pixel margin around each div, uses the border radius to create circles, and uses the inline-block display format to allow each div to occupy the same line across the page*/
+        .circle {
+            width: 100px;
+            height: 100px;
+            background: #bf6864;
+            border-radius: 50%;
+            display: inline-block;
+            margin: 0 25px;
+        }       
     </style>
 </head>
 
@@ -53,6 +71,7 @@
     <p>Creating a map with the principles of Cartographic Gaze is always ideal. What throws me is Donna Haraway's 'God-trick'. Taking the map below (world.png) as an example; though the continents seem to be properly proportioned the overall view is distorted and not true to nature. I might be taking the principles to literally, but I feel like 'God-trick' is in exact contradiction to the idea of mirroring nature. Now to lighten the mood. Please enjoy some tasty 
         <a href="https://baconipsum.com/"> bacon!</a></p>
     <img id="map" src="images/world2.png" alt="world map">
+<!--    holds written text to be read on the web page and includes a hyperlink for the wikipedia page of Lorem ipsum (within the <a></a> tag) -->
     <p>paragraph with link: <a href="https://en.wikipedia.org/wiki/Lorem_ipsum">Lorem ipsum</a> dolor sit amet, consectetur adipiscing elit. Duis urna magna, maximus nec laoreet sit amet, dictum ultricies nibh. Ut id auctor lacus. Nam a dolor et justo luctus luctus. Duis a elit eget risus dictum vehicula id eu elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed sed enim nisl.</p>
     <ul>
         <li>un-ordered list item 1</li>
@@ -63,14 +82,29 @@
         <li><a href="https://cartodb.com/">CartoDB</a></li>
         <li><a href="http://d3js.org/">Data-Driven Documents</a></li>
     </ul>
+<!--    labels this particular div "box" which can be used in CSS and JS to refer to and make changes to this particular div. -->
     <div id="box"></div>
     <div class="circle"></div>
     <div class="circle"></div>
     <div class="circle"></div>
 
     <script>
-        // JavaScript code goes here  
+      document.querySelector('h1').innerHTML = 'web mapping is sweet!';
+        var box = document.getElementById('box');
+        box.style.background = '#4d4a9f';
+        var elements = document.getElementsByClassName('circle');
         
+        for(var i=0; i<=elements.length-1;i++){
+            elements[i].style['border-radius'] = '20%';
+        }
+//        changes the width of the div with an id of "box" once that div is clicked
+        box.addEventListener('click', function(){
+            this.style.width = '400px';
+        })
+        var newListItem = document.createElement('li');
+        newListItem.innerHTML = "list item 4";
+        document.querySelector('ul').appendChild(newListItem);
+        console.log("hello map");
     </script>
     
 </body>
