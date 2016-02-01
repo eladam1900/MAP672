@@ -17,29 +17,32 @@
 /*        changes the font size and pushes the text 300 pixels from the left (centering it). */
         h1 {
             font-size: 2em;
-            margin-left: 300px;
-        }
-/*        changes the font size, pushes the text 360 pixels from the left (centering it under the h1), and adds a negative top margin adjusting the space between h1 and h2.*/
-        h2{
-            font-size: 1em;
-            margin-left: 360px;
-            margin-top: -20px;
+/*            margin-left: 300px;*/
+            text-align: center;
             
         }
-        p{
+/*        changes the font size, pushes the text 360 pixels from the left (centering it under the h1), and adds a negative top margin adjusting the space between h1 and h2.*/
+        h2 {
+            font-size: 1em;
+        /*    margin-left: 360px;*/
+            margin-top: -20px;
+            text-align: center;
+            
+        }
+        p {
             font-size: 1em;
             margin: 15px 25px;
             max-width: 800px;
         }
-        a{
+        a {
             color: deepskyblue;
             font-weight: bold;
             text-decoration: none;
         }
-        a:hover{
+        a:hover {
             text-decoration: underline;
         }
-        img{
+        img {
             margin-left: 25px;
             border: 7px double black;
             
@@ -89,9 +92,11 @@
     <div class="circle"></div>
 
     <script>
-      document.querySelector('h1').innerHTML = 'web mapping is sweet!';
+        document.querySelector('h1').innerHTML = 'web mapping is sweet!';
+        
         var box = document.getElementById('box');
         box.style.background = '#4d4a9f';
+        
         var elements = document.getElementsByClassName('circle');
         
         for(var i=0; i<=elements.length-1;i++){
@@ -101,9 +106,11 @@
         box.addEventListener('click', function(){
             this.style.width = '400px';
         })
+        
         var newListItem = document.createElement('li');
         newListItem.innerHTML = "list item 4";
         document.querySelector('ul').appendChild(newListItem);
+        
         console.log("hello map");
     </script>
     
