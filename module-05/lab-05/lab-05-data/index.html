@@ -52,17 +52,15 @@
 
 <body>
     <header>
-        <h1>Map Title</h1>
-        <h2>Map Subtitle</h2>
+        <h1>Density in Decline</h1>
+        <h2>The Southern Route</h2>
     </header>
 
     <div id='map'></div>
 
     <footer>
         <p>Map authored by Elizabeth Adams</p>
-        <p>Additional information about the data and map goes here.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis urna magna, maximus nec laoreet sit amet, dictum ultricies nibh. Ut id auctor lacus. Nam a dolor et justo luctus luctus. Duis a elit eget risus dictum vehicula id eu elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed sed enim nisl. Vestibulum commodo imperdiet lacus, sed facilisis erat placerat sit amet. Nulla consequat malesuada neque eget aliquet. Integer non convallis nisl, gravida ultrices ex. Fusce nec vestibulum elit. Sed elementum lectus ipsum, vulputate elementum ex laoreet a. Aenean eu ex varius, varius felis vitae, efficitur nulla. Quisque pretium laoreet ante, in sodales dui vehicula at. Mauris eu sem sapien.
-        </p>
+        <p>Data Source: Google, Feb 2016</p>
     </footer>
 
 <script>
@@ -82,7 +80,23 @@
     map.addLayer(tiles);
 
     // begin writing/editing Lab 05 code here
-
+    
+/*     for (i=0,i < cityAreas.length,i++){
+        try {
+   try_statements
+}
+[catch (exception_var_1 if condition_1) { // non-standard
+   catch_statements_1
+}]
+...
+[catch (exception_var_2) {
+   catch_statements_2
+}]
+[finally {
+   finally_statements
+}]
+    };*/
+    
     var lexArea = Number(prompt("Enter data", "Enter the area of Lexington in square miles"));
     var richArea = Number(prompt("Enter data", "Enter the area of Richmond in square miles"));
     var bereaArea = Number(prompt("Enter data", "Enter the area of Berea in square miles"));
@@ -101,7 +115,7 @@
         var cityPops = [308428,32550,14374]; /* include 2nd and 3rd city pops here */
 
         var cityAreas = [lexArea,richArea,bereaArea]; /* include 2nd and 3rd city areas */
-
+        
        mapCities(cities,cityCoords,cityPops,cityAreas); // call the mapCities function, passing the 4 arrays created above as arguments
 
     }
