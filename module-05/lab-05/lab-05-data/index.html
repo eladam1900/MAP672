@@ -84,7 +84,7 @@
     var lexArea = Number(prompt("Enter data", "Enter the area of Lexington in square miles"));
     var richArea = Number(prompt("Enter data", "Enter the area of Richmond in square miles"));
     var bereaArea = Number(prompt("Enter data", "Enter the area of Berea in square miles"));
-
+                   
     prepareData(lexArea,richArea,bereaArea); // modify this function call to pass all three variables
 
     function prepareData(lexArea,richArea,bereaArea) { /* modify function to include 2 more parameters */
@@ -99,7 +99,13 @@
         var cityPops = [308428,32550,14374]; /* include 2nd and 3rd city pops here */
 
         var cityAreas = [lexArea,richArea,bereaArea]; /* include 2nd and 3rd city areas */
-        
+    
+/*    for (i=0;i<cityAreas.length; i++){
+        if(cityAreas[i]= isNaN){
+            alert("Please enter number values only.")
+        }
+    };
+        */
        mapCities(cities,cityCoords,cityPops,cityAreas); // call the mapCities function, passing the 4 arrays created above as arguments
 
     }
@@ -112,8 +118,8 @@
 
             var density =  calcPopDensity(cityPops[i],cityAreas[i],units); /*call a function named calcPopDensity here, passing the city population, area, and units as arguments, and assign return value to the  "density" variable */
             var popup = "<b>"+cities[i]+"</b><br>"
-                        +"<b>Population</b>: "+cityPops[i]+"</b><br>"
-                        +"<b>Area</b>: "+cityAreas[i]+"</b><br>"
+                        +"<b>Population</b>: "+cityPops[i]+"<br>"
+                        +"<b>Area</b>: "+cityAreas[i]+"<br>"
                         +"<b>Density</b>: "+density.toLocaleString()+" people per sq " + units;
 
             L.marker(cityCoords[i]).addTo(map)
