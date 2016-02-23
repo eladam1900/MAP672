@@ -11,9 +11,101 @@
 
 
 <script>
-/* JavaScript code goes here! */
+var iguana = {
+    name: "Jack",
+    weight: 4.2,
+    length: 1.5,
+    age: 8,
+    eyes: "dreamy",
+    questForWorldDomination: true,
+    invasionPlan: function(inData){
+        console.log(inData);
+    }
+  /*  calculateBMI: function() {
+        var w = this.weight;
+        var l = this.length;
+        return w/(l*l);
+    }*/
+/*    greeting: function(message) {
+        console.log(message);
+    }*/
+};
+    
+var lexData ={
+    lat: 38.23,
+    lon: -89.21,
+    name: "Lexington",
+    pop: 821325
+}    
 
+iguana.invasionPlan(lexData);
+    
+/*var result = iguana.calculateBMI();
+console.log(result);*/
+    
+/*iguana.greeting("Howdy there.");
+iguana.greeting("Hello. I am your new overlord.");    */
+    
+/*for (var key in iguana) {
+    //console.log(key);
+    //console.log(iguana[key]); 
+    //console.log(key, iguana[key]);
+}*/
+    
+//console.log(iguana);    
+/*console.log(iguana.name);
+console.log(iguana.weight);    
+console.log(iguana["age"]);    
+    
+iguana.weight = 5.2;
+iguana["age"] = 9;
+    
+console.log(iguana.weight);
+console.log(iguana.age);    */
+    
+/*iguana.color = "green";
+iguana["madGenius"] = true;
+    
+console.log(iguana);    */
+    
+/*var iguana = { 
+questForWorldDomination: true,  
+age: 8, 
+eyes: "dreamy",
+name: "Jack", 
+weight: 4.2,
+toolkit: {
+    conquestFlag: "red",
+    surrenderFlag: "white",
+    food: true,
+    music: "Anthrax",
+    coolSunGlasses: 8
+    }
+}*/
+//console.log(iguana);
+/*console.log(iguana.toolkit.music);   
+console.log(iguana["toolkit"]["food"]);    
+console.log(iguana["toolkit"].coolSunGlasses);    */
 
+/*var cityName = "Lexington";
+console.log(cityName);
+var cityNameWithState = cityName.concat(", KY");
+console.log(cityNameWithState); 
+    
+var cityName = "Lexington";
+console.log(cityName.charAt(4)); 
+console.log(cityName.indexOf("x"));    */
+    
+var pop = 1200000;
+var area = 683.24;
+var density = pop/area;
+
+console.log(density); 
+
+var output = density.toLocaleString();
+
+console.log(output); 
+    
 </script>
     
 </body>

@@ -78,11 +78,13 @@
         maxZoom: 19
     });
     map.addLayer(tiles);
+
+    // begin writing/editing Lab 05 code here
     
     var lexArea = Number(prompt("Enter data", "Enter the area of Lexington in square miles"));
     var richArea = Number(prompt("Enter data", "Enter the area of Richmond in square miles"));
     var bereaArea = Number(prompt("Enter data", "Enter the area of Berea in square miles"));
-                   
+    
     prepareData(lexArea,richArea,bereaArea); // modify this function call to pass all three variables
 
     function prepareData(lexArea,richArea,bereaArea) { /* modify function to include 2 more parameters */
@@ -97,30 +99,22 @@
         var cityPops = [308428,32550,14374]; /* include 2nd and 3rd city pops here */
 
         var cityAreas = [lexArea,richArea,bereaArea]; /* include 2nd and 3rd city areas */
-<<<<<<< HEAD
     
-/*    for (i=0;i<cityAreas.length; i++){
-        if(cityAreas[i]= isNaN){
-            alert("Please enter number values only.")
-        }
-    };
-        */
        mapCities(cities,cityCoords,cityPops,cityAreas); // call the mapCities function, passing the 4 arrays created above as arguments
-=======
-        
-        mapCities(cities,cityCoords,cityPops,cityAreas); // call the mapCities function, passing the 4 arrays created above as arguments
->>>>>>> origin/master
 
     }
 
     function mapCities(cities, cityCoords, cityPops, cityAreas) { /* include 2 more parameters here */
-
+        
+        do{
+           
         var units = prompt('Units for calculating density', 'Enter "miles" or "km"');
+            
+        }while (units != "miles" && units != "km");
 
         for(var i = 0; i < cities.length; i++) {
 
-            var density =  calcPopDensity(cityPops[i],cityAreas[i],units); 
-          
+            var density =  calcPopDensity(cityPops[i],cityAreas[i],units); /*call a function named calcPopDensity here, passing the city population, area, and units as arguments, and assign return value to the  "density" variable */
             var popup = "<b>"+cities[i]+"</b><br>"
                         +"<b>Population</b>: "+cityPops[i]+"<br>"
                         +"<b>Area</b>: "+cityAreas[i]+"<br>"
@@ -131,15 +125,21 @@
 
         }
     }
-  
     
-    function calcPopDensity (pop,area,units) {
-        if (units === "km") {
-            area = area * 2.59;
-        }
-        var density = pop/area;
-        return density;
-    };
+// write a function named calcPopDensity which accepts three arguments, the  
+// population, the area of a single city, and the units ('miles' or 'km') entered by
+// the user above. The function should calculate the density of the city with these two 
+// values and return the result to where the function was called.
+    
+function calcPopDensity (pop,area,units) {
+    if (units === "km") {
+        area = area/1.6093442
+    }
+    var density = pop/area;
+    return density;
+};
+
+    // end writing/editing Lab 05 code here
 
 </script>
     
