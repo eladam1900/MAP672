@@ -77,33 +77,35 @@
         });    
         map.addLayer(tiles);
         
-        var mapCenter = L.latLng(38.0489,-96.5025);
+/*        var mapCenter = L.latLng(38.0489,-96.5025);
         var otherCity = L.latLng(38.1489,-96.5125);
         var distance = mapCenter.distanceTo(otherCity);
-        console.log(distance); // will output distance between cities in meters
+        console.log(distance); // will output distance between cities in meters*/
        
         map.on('click', function(e) {
         console.log(e.latlng);
         });
         
-        var center = map.getCenter();
+/*        var center = map.getCenter();
         console.log(center); // returns a LatLng object
         var zoom = map.getZoom();
         console.log(zoom); // returns a Number
         var bounds = map.getBounds();
-        console.log(bounds); // returns a LatLngBounds object
+        console.log(bounds); // returns a LatLngBounds object*/
         
         //Red Iguana is amazing!!
         var redIguanaLocation = L.latLng(40.7718,-111.9124);
         var redIguanaCircle = L.circle(redIguanaLocation, 400);
         redIguanaCircle.addTo(map);
         
-        var porcupineLocation = L.latLng(40.5834,-111.7539);
-        var porcupineCircle = L.circle(porcupineLocation, 400);
+        var porcupineLocation = L.latLng(40.6188,-111.7911);
+        var porcupineCircle = L.circle(porcupineLocation, 400, {
+            color: "#b94141"
+        });
         porcupineCircle.addTo(map);
         
-        var IcebergLocation = L.latLng(40.5837,-111.7539);
-        var IcebergCircle = L.circle(IcebergLocation, 400);
+        var IcebergLocation = L.latLng(40.6534,-111.9347);
+        var IcebergCircle = L.circle(IcebergLocation, 600);
         IcebergCircle.addTo(map);
         
         /*var redIguanaMarker = L.marker(redIguanaLocation,{
