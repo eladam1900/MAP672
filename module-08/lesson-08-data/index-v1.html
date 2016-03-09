@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8 />
+    <title>Lesson 08 Template</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+    <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: whitesmoke;
+            font-family: Lato, sans-serif;
+            color: #0D0000;
+        }
+        header {
+            padding: 6px 10%;
+        }
+        h1 {
+            display: inline-block;
+            margin-right: 20px;
+            color: #001323;
+        }
+        h2 {
+            display: inline-block;
+            color: #001323;
+        }
+        #map {
+            width: 80%;
+            height: 540px;
+            margin: 10px auto;
+        }
+        footer {
+            padding: 6px 10%;
+            width: 80%;
+        }
+        p {
+            font-size: 1em;
+            color: #001323;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Map Title</h1>
+        <h2>Map Subtitle</h2>
+    </header>
+
+    <div id='map'></div>
+
+    <footer>
+        <p>Map authored by YOUR NAME</p>
+        <p>Additional information about the data and map goes here.</p>
+    </footer>
+
+    <script>
+
+      var places = {
+          "type": "FeatureCollection",
+          "features": [
+            {
+                "type": "Feature",
+                "properties": {
+                "marker-color": "#7e7e7e",
+                "marker-size": "medium",
+                "marker-symbol": "",
+                "name": "Tallonn",
+                "size": 159
+                },
+                "geometry": {
+                "type": "Point",
+                "coordinates": [
+                   24.76318359375,
+                   59.43390314475791
+                    ]
+                }
+            },
+              
+            {
+                "type": "Feature",
+                "properties": {
+                "marker-color": "#7e7e7e",
+                "marker-size": "medium",
+                "marker-symbol": "",
+                "name": "Haapsaiu",
+                "size": 11
+                },
+                "geometry": {
+                "type": "Point",
+                "coordinates": [
+                   23.5601806640625,
+                   58.952841412884325
+                   ]
+                }
+            },
+              
+            {
+                "type": "Feature",
+                "properties": {
+                "marker-color": "#7e7e7e",
+                "marker-size": "medium",
+                "marker-symbol": "",
+                "name": "Parnu",
+                "size": 32
+                },
+                "geometry": {
+                "type": "Point",
+                "coordinates": [
+                   24.5269775390625,
+                   58.3844382319306
+                    ]
+                }
+            },
+              
+            {
+                "type": "Feature",
+                "properties": {
+                "marker-color": "#7e7e7e",
+                "marker-size": "medium",
+                "marker-symbol": "",
+                "name": "Tartu",
+                "size": 39
+                },
+                "geometry": {
+                 "type": "Point",
+                 "coordinates": [
+                    26.7242431640625,
+                    58.37579834033745
+                    ]
+                }
+            }
+        ]
+      }    
+      var map = L.map('map', {
+          center:[58.73, 25.67],
+          zoom: 7
+      });
+        
+      var tiles = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; National Geographic, Esri, DeLorme, NAVTEQ, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC',
+	maxZoom: 19
+      });
+      tiles.addTo(map);    
+        
+    var placeLeaflet = L.geoJson(places, {
+        pointToLayer : function(feature, latlng){
+            console.log(feature.properties);
+            return L.circle(latlng, feature.properties.size * 100);
+        }
+    }).addTo(map);    
+                  
+    </script>
+    
+</body>
+
+</html>
