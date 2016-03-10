@@ -88,13 +88,35 @@
       L.geoJson(plants, {
           pointToLayer: function(feature,latlng) {
               return L.circleMarker(latlng, {
-                 color: 'orange',
+                 color: 'sky-blue',
                  weight: 1,
-                 fillColor: 'yellow',
-                 fillOpacity: .8,
+                 fillColor: 'lightgreen',
+                 fillOpacity: 1,
                  radius: getRadius(feature.properties.capacity_mw)
-              });   
+              });
           },
+          
+          filter : function(feature, layer) {
+              if(feature.properties.fuel_source.Biomass){
+                return feature;
+              }
+          },
+          
+          onEachFeature : function(feature,layer) {
+              layer.on('mouseover', function(){
+                 layer.setStyle({
+                     fillColor : 'blue'
+                 }); 
+              });
+              
+              layer.on('mouseout', function(){
+                  layer.setStyle({
+                      fillColor : 'lightgreen'
+                  });
+              });
+              
+              layer.bindPopup("<b>"+feature.properties.plant_name+"</b>"+"<br>"+feature.properties.capacity_mw+" MW");
+          }
           
       }).addTo(map);
 
