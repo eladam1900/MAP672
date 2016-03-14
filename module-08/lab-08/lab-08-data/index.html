@@ -84,6 +84,16 @@
           return radius * .6;
       };          
         
+    function Coal(feature){ 
+    if(feature.properties.fuel_source.Coal == "undefined"){
+        return "0";
+    }else{
+       return feature.properties.fuel_source.Coal;
+    };
+   /* if(feature.properties.fuel_source.Hyrdo > 0){
+    return feature.properties.fuel_source.Hydro;} */   
+  };     
+        
       L.geoJson(plants, {
           pointToLayer: function(feature,latlng) {
               return L.circleMarker(latlng, 
@@ -150,14 +160,14 @@
               
               layer.on('click', function(){
                  console.log(feature.properties.fuel_source); 
+                 Coal(feature.properties.fuel_source.Coal);
               });
               
-              layer.bindPopup("<b>"+feature.properties.plant_name+"</b>"+"<br>"+feature.properties.capacity_mw+" MW"+"<br>"+"<b>Biomass: </b>"+feature.properties.fuel_source+" MW"+"<br>"+"<b>Coal:  </b>"+feature.properties.fuel_source.Coal+ " MW"+"<br>")
+              layer.bindPopup("<b>"+feature.properties.plant_name+"</b>"+"<br>"+feature.properties.capacity_mw+" MW"+"<br>"+"<b>Biomass: </b>"+feature.properties.fuel_source+" MW"+"<br>"+"<b>Coal:  </b>"+Coal+ " MW"+"<br>")
           }
           
       }).addTo(map);
-
-                  
+         
     </script>
     
 </body>
