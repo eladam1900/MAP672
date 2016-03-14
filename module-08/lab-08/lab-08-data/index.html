@@ -3,7 +3,7 @@
 
 <head>
     <meta charset=utf-8 />
-    <title>Lab 08 Starter</title>
+    <title>Biomass Facilities</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
     <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
@@ -49,15 +49,14 @@
 
 <body>
     <header>
-        <h1>Map Title</h1>
-        <h2>Map Subtitle</h2>
+        <h1>Biomass Facilities Across the US</h1>
     </header>
 
     <div id='map'></div>
 
     <footer>
-        <p>Map authored by YOUR NAME</p>
-        <p>Additional information about the data and map goes here.</p>
+        <p>Map authored by Elizabeth Adams</p>
+        <p><b>Created:</b> March 2016 <br><b>Data Source:</b> http://www.eia.gov/electricity/data/eia923/</p>
     </footer>
 
     <script src="power-plants.js"></script>
@@ -83,39 +82,77 @@
       function getRadius(area){
           var radius = Math.sqrt(area/Math.PI);
           return radius * .6;
-      };    
+      };          
         
       L.geoJson(plants, {
           pointToLayer: function(feature,latlng) {
-              return L.circleMarker(latlng, {
+              return L.circleMarker(latlng, 
+              {    
+                 color: 'white',
+                 weight: 1,
+                 fillColor: 'white',
+                 fillOpacity: 1,
+                 radius: getRadius(feature.properties.capacity_mw)
+               
+              })
+        
+          },
+          
+          filter : function(feature, layer) {
+              if(feature.properties.fuel_source.Biomass || feature.properties.fuel_source.Solar){
+                return feature;
+              }
+          },
+              
+          onEachFeature : function(feature,layer) {
+              
+             if(feature.properties.fuel_source.Biomass){
+               layer.setStyle({
                  color: 'sky-blue',
                  weight: 1,
                  fillColor: 'lightgreen',
                  fillOpacity: 1,
                  radius: getRadius(feature.properties.capacity_mw)
-              });
-          },
-          
-          filter : function(feature, layer) {
-              if(feature.properties.fuel_source.Biomass){
-                return feature;
-              }
-          },
-          
-          onEachFeature : function(feature,layer) {
-              layer.on('mouseover', function(){
+               })
+                layer.on('mouseover', function(){
                  layer.setStyle({
                      fillColor : 'blue'
                  }); 
               });
               
               layer.on('mouseout', function(){
-                  layer.setStyle({
-                      fillColor : 'lightgreen'
-                  });
+              layer.setStyle({
+                 fillColor : 'lightgreen'
+                            });
+                    });
+             }
+              
+            if(feature.properties.fuel_source.Solar){
+               layer.setStyle({ 
+                 color: 'red',
+                 weight: 1,
+                 fillColor: 'orange',
+                 fillOpacity: 1,
+                 radius: getRadius(feature.properties.capacity_mw)
+               })
+               layer.on('mouseover', function(){
+               layer.setStyle({
+                     fillColor : 'yellow'
+                 }); 
               });
               
-              layer.bindPopup("<b>"+feature.properties.plant_name+"</b>"+"<br>"+feature.properties.capacity_mw+" MW");
+              layer.on('mouseout', function(){
+                  layer.setStyle({
+                      fillColor : 'orange'
+                  });
+              });
+             }
+              
+              layer.on('click', function(){
+                 console.log(feature.properties.fuel_source); 
+              });
+              
+              layer.bindPopup("<b>"+feature.properties.plant_name+"</b>"+"<br>"+feature.properties.capacity_mw+" MW"+"<br>"+"<b>Biomass: </b>"+feature.properties.fuel_source+" MW"+"<br>"+"<b>Coal:  </b>"+feature.properties.fuel_source.Coal+ " MW"+"<br>")
           }
           
       }).addTo(map);
