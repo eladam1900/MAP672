@@ -3,7 +3,7 @@
 
 <head>
     <meta charset=utf-8 />
-    <title>Lab 09 Template</title>
+    <title>Power Sources</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
     <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
@@ -49,15 +49,15 @@
 
 <body>
     <header>
-        <h1>Map Title</h1>
-        <h2>Map Subtitle</h2>
+        <h1>Three Power Sources</h1>
+        <h2>Nuclear, Solar, and Wind</h2>
     </header>
 
     <div id='map'></div>
 
     <footer>
-        <p>Map authored by YOUR NAME</p>
-        <p>Additional information about the data and map goes here.</p>
+        <p>Map authored by Elizabeth Adams</p>
+        <p>Created March 2016</p>
     </footer>
 
     <script src="power-plants.js"></script>
@@ -75,7 +75,76 @@
       });  
       
       tiles.addTo(map);
-                  
+        
+    var SolarLayer = L.geoJson(plants,{
+        pointToLayer: function(feature,latlng){
+            return L.circleMarker(latlng);
+        },
+        filter: function(feature,layer){
+            if(feature.properties.fuel_source.Solar){
+                return feature
+            }
+        },
+        style: function(feature){
+            return{
+                color: 'orange',
+                radius: getRadius(feature.properties.capacity_mw)
+            }
+                layer.feature.properties.color = 'orange';
+        }
+    }).addTo(map);       
+        
+    var WindLayer = L.geoJson(plants,{
+        pointToLayer: function(feature,latlng){
+            return L.circleMarker(latlng);
+        },
+        filter: function(feature,layer){
+            if(feature.properties.fuel_source.Wind){
+                return feature
+            }
+        },
+        style: function(feature){
+            return{
+                color: 'white',
+                radius: getRadius(feature.properties.capacity_mw)
+            }
+                layer.feature.properties.color = 'white';
+        }
+    }).addTo(map);   
+      
+    var NucLayer = L.geoJson(plants,{
+        pointToLayer: function(feature,latlng){
+            return L.circleMarker(latlng);
+        },
+        filter: function(feature,layer){
+            if(feature.properties.fuel_source.Nuclear){
+                return feature
+            }
+        },
+       style: function(feature){
+            return{
+                color: 'green',
+                radius: getRadius(feature.properties.capacity_mw)
+            }                
+                layer.feature.properties.color = 'green';
+            
+        }
+    }).addTo(map);   
+        
+        
+    var powerSources = {
+        "<b style= 'color:#ffa500'>Solar</b>": SolarLayer,
+        "<b style= 'color:#9a9391'>Wind</b>": WindLayer,
+        "<b style= 'color:#008000'>Nuclear</b>": NucLayer
+        
+    }    
+        
+    L.control.layers(null, powerSources, {collapsed:false}).addTo(map);    
+        
+    function getRadius(area){
+        var radius = Math.sqrt(area/Math.PI);
+        return radius * .6;
+    }              
     </script>
     
 </body>
