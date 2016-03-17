@@ -83,17 +83,7 @@
           var radius = Math.sqrt(area/Math.PI);
           return radius * .6;
       };          
-        
-    function Coal(feature){ 
-    if(feature.properties.fuel_source.Coal == "undefined"){
-        return "0";
-    }else{
-       return feature.properties.fuel_source.Coal;
-    };
-   /* if(feature.properties.fuel_source.Hyrdo > 0){
-    return feature.properties.fuel_source.Hydro;} */   
-  };     
-        
+          
       L.geoJson(plants, {
           pointToLayer: function(feature,latlng) {
               return L.circleMarker(latlng, 
@@ -158,12 +148,13 @@
               });
              }
               
-              layer.on('click', function(){
-                 console.log(feature.properties.fuel_source); 
-                 Coal(feature.properties.fuel_source.Coal);
-              });
+              var content  = "<b>"+feature.properties.plant_name+"</b>"+"<br>"+feature.properties.capacity_mw.toLocaleString()+" MW <br>"
               
-              layer.bindPopup("<b>"+feature.properties.plant_name+"</b>"+"<br>"+feature.properties.capacity_mw+" MW"+"<br>"+"<b>Biomass: </b>"+feature.properties.fuel_source+" MW"+"<br>"+"<b>Coal:  </b>"+Coal+ " MW"+"<br>")
+              for(var source in feature.properties.fuel_source){
+                  content += "<b>"+source+": </b>"+feature.properties.fuel_source[source].toLocaleString()+" MW <br>"
+              };
+              
+              layer.bindPopup(content)
           }
           
       }).addTo(map);
