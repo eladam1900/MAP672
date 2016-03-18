@@ -57,7 +57,7 @@
 
     <footer>
         <p>Map authored by Elizabeth Adams</p>
-        <p>Created March 2016</p>
+        <p><b>Created:</b> March 2016 <br><b>Data Source:</b> http://www.eia.gov/electricity/data/eia923/</p>
     </footer>
 
     <script src="power-plants.js"></script>
@@ -76,75 +76,72 @@
       
       tiles.addTo(map);
         
-    var SolarLayer = L.geoJson(plants,{
+      var powerSources = {
+          nucLayer: {source:"Nuclear", color: 'green'},
+          solarLayer: {source:"Solar", color: 'orange'},
+          windLayer: {source:"Wind", color:'white'}
+        };
+        
+      var geoJsonLayers = {};
+        
+      for( var layer in powerSources){
+   
+    powerSources[layer] = L.geoJson(plants,{
         pointToLayer: function(feature,latlng){
             return L.circleMarker(latlng);
+             console.log(powerSources[layer]);
         },
-        filter: function(feature,layer){
-            if(feature.properties.fuel_source.Solar){
-                return feature
+        filter: function(feature){
+            if(feature.properties.fuel_source[powerSources[layer].source]){
+                return feature;
             }
         },
         style: function(feature){
             return{
-                color: 'orange',
+                color: powerSources[layer].color,
                 radius: getRadius(feature.properties.capacity_mw)
             }
-                layer.feature.properties.color = 'orange';
-        }
-    }).addTo(map);       
-        
-    var WindLayer = L.geoJson(plants,{
-        pointToLayer: function(feature,latlng){
-            return L.circleMarker(latlng);
-        },
-        filter: function(feature,layer){
-            if(feature.properties.fuel_source.Wind){
-                return feature
             }
-        },
-        style: function(feature){
-            return{
-                color: 'white',
-                radius: getRadius(feature.properties.capacity_mw)
-            }
-                layer.feature.properties.color = 'white';
+        }).addTo(map);       
         }
-    }).addTo(map);   
-      
-    var NucLayer = L.geoJson(plants,{
-        pointToLayer: function(feature,latlng){
-            return L.circleMarker(latlng);
-        },
-        filter: function(feature,layer){
-            if(feature.properties.fuel_source.Nuclear){
-                return feature
-            }
-        },
-       style: function(feature){
-            return{
-                color: 'green',
-                radius: getRadius(feature.properties.capacity_mw)
-            }                
-                layer.feature.properties.color = 'green';
-            
-        }
-    }).addTo(map);   
-        
-        
-    var powerSources = {
-        "<b style= 'color:#ffa500'>Solar</b>": SolarLayer,
-        "<b style= 'color:#9a9391'>Wind</b>": WindLayer,
-        "<b style= 'color:#008000'>Nuclear</b>": NucLayer
-        
-    }    
-        
-    L.control.layers(null, powerSources, {collapsed:false}).addTo(map);    
         
     function getRadius(area){
-        var radius = Math.sqrt(area/Math.PI);
+    var radius = Math.sqrt(area/Math.PI);
         return radius * .6;
-    }              
+    }  
+
+    var powerLabels = {
+        "<b style= 'color:#ffa500'>Solar</b>": geoJsonLayers.nucLayer,
+        "<b style= 'color:#9a9391'>Wind</b>": geoJsonLayers.solarLayer,
+        "<b style= 'color:#008000'>Nuclear</b>": geoJsonLayers.windLayer
+        
+    }    
+       
+  //  L.control.layers(null, powerLabels, { collapsed:false }).addTo(map);      
+        
+    map.on('click', function(e){
+       for(var layer in powerSources){
+        powerSources[layer].eachLayer(function(layer){
+           var distance  = e.latlng.distanceTo(layer.getLatLng())/1000;
+           
+           if(distance > 500){
+               layer.setStyle({
+                   fill: false,
+                   stroke: false
+               });
+           }else {
+               layer.setStyle({
+                  fill: true,
+                   stroke: true
+               });
+             var content = "<b>"+layer.feature.properties.plant_name+"</b><br>"+layer.feature.properties.capacity_mw.toLocaleString()+" MW<br>"
+             content += "i am <b>"+distance.toLocaleString()+"km</b><br> from the click point."
+             layer.bindPopup(content);  
+           }
+       }); 
+       }
+    });
+    
     </script>
     
 </body>
