@@ -134,8 +134,15 @@
                   fill: true,
                    stroke: true
                });
-             var content = "<b>"+layer.feature.properties.plant_name+"</b><br>"+layer.feature.properties.capacity_mw.toLocaleString()+" MW<br>"
-             content += "I am <b>"+distance.toLocaleString()+"km</b><br> from the click point."
+               
+             var content = "<b>"+layer.feature.properties.plant_name+"</b><br>"+layer.feature.properties.capacity_mw.toLocaleString()+" MW<br><br>"
+             
+             for(var source in layer.feature.properties.fuel_source){
+                  content += "<b>"+source+": </b>"+layer.feature.properties.fuel_source[source].toLocaleString()+" MW <br>"
+              };
+             
+            content += "<br>I am <b>"+distance.toLocaleString()+"km</b><br> from the click point.<br>"   
+               
              layer.bindPopup(content);  
            }
        }); 
