@@ -127,10 +127,9 @@
         
     map.on('click', function(e){
        for(var layer in geoJsonLayers){
-        geoJsonLayers[layer].eachLayer(function(layer){
-           var distance  = e.latlng.distanceTo(layer.getLatLng())/1000;
-          
-        spotlight.setLatLng(e.latlng).addTo(map);  
+         geoJsonLayers[layer].eachLayer(function(layer){
+         var distance  = e.latlng.distanceTo(layer.getLatLng())/1000;
+         //spotlight.setLatLng(e.latlng).addTo(map);  
             
            if(distance > 500){
                layer.setStyle({
@@ -142,7 +141,7 @@
                   fill: true,
                    stroke: true
                });
-               
+             console.log(layer.feature.properties.fuel_source[source]);  
              var content = "<b>"+layer.feature.properties.plant_name+"</b><br>"+layer.feature.properties.capacity_mw.toLocaleString()+" MW<br><br>"
              
              for(var source in layer.feature.properties.fuel_source){
