@@ -75,6 +75,12 @@
       });  
       
       tiles.addTo(map);
+       
+      var spotlight = L.circle([0,0],550000,{
+              color: 'white',
+              opacity: .5,
+              stroke: false
+      });    
         
       var powerSources = {
           nucLayer: {source:"Nuclear", color: 'green'},
@@ -123,7 +129,9 @@
        for(var layer in geoJsonLayers){
         geoJsonLayers[layer].eachLayer(function(layer){
            var distance  = e.latlng.distanceTo(layer.getLatLng())/1000;
-           
+          
+        spotlight.setLatLng(e.latlng).addTo(map);  
+            
            if(distance > 500){
                layer.setStyle({
                    fill: false,
