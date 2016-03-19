@@ -80,7 +80,7 @@
               color: 'white',
               opacity: .5,
               stroke: false
-      });    
+      }).addTo(map);    
         
       var powerSources = {
           nucLayer: {source:"Nuclear", color: 'green'},
@@ -129,7 +129,7 @@
        for(var layer in geoJsonLayers){
          geoJsonLayers[layer].eachLayer(function(layer){
          var distance  = e.latlng.distanceTo(layer.getLatLng())/1000;
-         //spotlight.setLatLng(e.latlng).addTo(map);  
+         spotlight.setLatLng(e.latlng);  
             
            if(distance > 500){
                layer.setStyle({
