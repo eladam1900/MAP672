@@ -75,6 +75,12 @@
       });  
       
       tiles.addTo(map);
+       
+      var spotlight = L.circle([0,0],550000,{
+              color: 'white',
+              opacity: .5,
+              stroke: false
+      }).addTo(map);    
         
       var powerSources = {
           nucLayer: {source:"Nuclear", color: 'green'},
@@ -86,10 +92,10 @@
         
       for( var layer in powerSources){
    
-    powerSources[layer] = L.geoJson(plants,{
+    geoJsonLayers[layer] = L.geoJson(plants,{
         pointToLayer: function(feature,latlng){
             return L.circleMarker(latlng);
-             console.log(powerSources[layer]);
+             
         },
         filter: function(feature){
             if(feature.properties.fuel_source[powerSources[layer].source]){
@@ -112,18 +118,27 @@
 
     var powerLabels = {
         "<b style= 'color:#ffa500'>Solar</b>": geoJsonLayers.solarLayer,
+<<<<<<< HEAD
        "<b style= 'color:#9a9391'>Wind</b>": geoJsonLayers.windLayer,
         "<b style= 'color:#008000'>Nuclear</b>": geoJsonLayers.nucLayer
         
     }    
 
+=======
+        "<b style= 'color:#9a9391'>Wind</b>": geoJsonLayers.windLayer,
+        "<b style= 'color:#008000'>Nuclear</b>": geoJsonLayers.nucLayer
+        
+    }    
+       
+>>>>>>> origin/master
     L.control.layers(null, powerLabels, { collapsed:false }).addTo(map);      
         
     map.on('click', function(e){
-       for(var layer in powerSources){
-        powerSources[layer].eachLayer(function(layer){
-           var distance  = e.latlng.distanceTo(layer.getLatLng())/1000;
-           
+       for(var layer in geoJsonLayers){
+         geoJsonLayers[layer].eachLayer(function(layer){
+         var distance  = e.latlng.distanceTo(layer.getLatLng())/1000;
+         spotlight.setLatLng(e.latlng);  
+            
            if(distance > 500){
                layer.setStyle({
                    fill: false,
@@ -134,8 +149,15 @@
                   fill: true,
                    stroke: true
                });
-             var content = "<b>"+layer.feature.properties.plant_name+"</b><br>"+layer.feature.properties.capacity_mw.toLocaleString()+" MW<br>"
-             content += "i am <b>"+distance.toLocaleString()+"km</b><br> from the click point."
+             console.log(layer.feature.properties.fuel_source[source]);  
+             var content = "<b>"+layer.feature.properties.plant_name+"</b><br>"+layer.feature.properties.capacity_mw.toLocaleString()+" MW<br><br>"
+             
+             for(var source in layer.feature.properties.fuel_source){
+                  content += "<b>"+source+": </b>"+layer.feature.properties.fuel_source[source].toLocaleString()+" MW <br>"
+              };
+             
+            content += "<br>I am <b>"+distance.toLocaleString()+"km</b><br> from the click point.<br>"   
+               
              layer.bindPopup(content);  
            }
        }); 
